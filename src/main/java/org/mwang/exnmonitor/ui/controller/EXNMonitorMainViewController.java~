@@ -14,22 +14,19 @@ import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import com.vividsolutions.jts.simplify.DouglasPeuckerSimplifier;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -39,7 +36,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -51,7 +47,6 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,11 +60,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
@@ -113,7 +105,7 @@ import org.gillius.jfxutils.chart.JFXChartUtil;
 import org.gillius.jfxutils.chart.StableTicksAxis;
 import org.mwang.exnmonitor.model.FetchDBDataTask;
 import org.mwang.exnmonitor.helper.DragResizer;
-import org.mwang.exnmonitor.helper.RecentItems;
+import org.mwang.exnvizer.ui.controller.EXNVizerMainViewController;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
 
@@ -121,142 +113,51 @@ import org.sqlite.SQLiteDataSource;
  * @author envenio
  */
 
-public class EXNMonitorMainViewController1 implements Initializable {
-  private static final Logger logger = Logger.getLogger(EXNMonitorMainViewController1.class.getName());
-  
-  // global data variables
-  private String userhome;
-  //private String selXFieldName;
-  private ExecutorService databaseExecutor; 
-  private ProgressBar progressBar;
-  
-  private TreeView<HBox> dbTreeView;
-  private TreeItem<HBox> dbTreeRoot;  
-  private String sqldbTreeItemColor;
-  
-  private final Preferences prefNode = Preferences.userRoot();
-  private final RecentItems recentFilePaths = new RecentItems(4, prefNode);
-  
-  /* JavaFX control&layout UI elements */
-  //--root pane
+public class EXNMonitorMainViewController implements Initializable {
+
   @FXML
   private BorderPane rootBorderPane;
-
-  //--FileMenu
-  @FXML
-  private MenuItem openMultipleDBMenuItem; 
-  @FXML
-  private Menu openRecentDBsSubMenu;  
-  @FXML
-  private MenuItem closeAllDBMenuItem;
-  @FXML
-  private MenuItem removeAllDBMenuItem;  
-  //--EditMenu
-  @FXML
-  private MenuItem closeChartsMenuItem;
-  //--ViewMenu
-  @FXML
-  private MenuItem basicViusalizerMenuItem;
-  @FXML
-  private MenuItem analyticalViusalizerMenuItem;   
-  @FXML
-  private MenuItem exportChartMenuItem;  
-  //--ToolsMenu
-  @FXML
-  private MenuItem mergerDBMenuItem;
-  
-  //--Panes
-  @FXML
-  private VBox SQLiteTablesVBoxPane;
-  @FXML
-  private TabPane MonitorViewTabPane;  
-
-  
   @FXML
   private Label fetchDataLabel;
   @FXML
-  private Label ConnectStateLabel; 
+  private JFXButton openMultipleSqldbBtn;   
+  @FXML
+  private VBox SQLiteTablesVBoxPane;
+  @FXML
+  private TabPane sqlDBTabPane;
+
+  
+  private static final Logger logger = Logger.getLogger(EXNMonitorMainViewController.class.getName());
+  private String userhome;
+  private ExecutorService databaseExecutor; 
+  private ProgressBar progressBar;
+  private TreeView<HBox> dbTreeView;
+  private TreeItem<HBox> dbTreeRoot;
+  private String sqldbTreeItemColor;
+  private EXNVizerMainViewController exnvizerMainViewController;
+
+  private Map sqlDBTabMap;
   
   
-  @FXML
-  private Tab BasicViewTab;
-  @FXML
-  private TabPane VisualViewTabPane;
-
-
+  public void setExnvizerMainViewController(EXNVizerMainViewController exnvizerMainViewController) {
+    this.exnvizerMainViewController = exnvizerMainViewController;
+  }
+  
+  
   
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    
+    sqlDBTabMap = new HashMap();
+    sqlDBTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+            
     rootBorderPane.setId(("rootPane"));
     
-    //--FileMenu
-    openMultipleDBMenuItem.setDisable(false);
-    openRecentDBsSubMenu.setDisable(false);
-    closeAllDBMenuItem.setDisable(true);
-    removeAllDBMenuItem.setDisable(true);
-    //--EditMenu
-    exportChartMenuItem.setDisable(true);
-    closeChartsMenuItem.setDisable(true);
-    //--ViewMenu
-    basicViusalizerMenuItem.setDisable(true);
-    analyticalViusalizerMenuItem.setDisable(true);
-    //--ToolsMenu
-    mergerDBMenuItem.setDisable(true);    
-    
-    //--MenuItem Actions Init
-    openMultipleDBMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        OpenMultipleDBFiles();
-      }
-    });
-    closeAllDBMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        closeAllDBFiles();
-      }
-    });
-    removeAllDBMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        removeAllDBFiles();
-      }
-    });
-    closeChartsMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        closeEXNCharts();
-      }
+    openMultipleSqldbBtn.setOnAction((ActionEvent event) -> {
+      openMultipleDBFiles();
     });
     
-    //--BasicView Tab
-    //TabPaneDetacher.create().makeTabsDetachable(VisualViewTabPane);
-    VisualViewTabPane.getSelectionModel().select(BasicViewTab);
-    BasicViewTab.setOnCloseRequest(new EventHandler<Event>() {
-      @Override
-      public void handle(Event event) {
-        //----when closing chartTab, confirm with user if just hide chart instead of closing it.
-        Alert closeVisualTabAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        closeVisualTabAlert.setTitle("Closing "+BasicViewTab.getText()+" chart:");
-        closeVisualTabAlert.setHeaderText("Do you really want to close current chart?");
-        closeVisualTabAlert.setContentText("NOTE:This will remove all your setting data on the chart!\nOtherwise, you can hide the chart instead.");
-        ButtonType closeBtn = new ButtonType("Yes,close", ButtonBar.ButtonData.APPLY);
-        ButtonType cancelBtn = new ButtonType("Cancel",ButtonBar.ButtonData.CANCEL_CLOSE);
-        ButtonType hideBtn = new ButtonType("Hide it",ButtonBar.ButtonData.BACK_PREVIOUS);
-        closeVisualTabAlert.getButtonTypes().setAll(closeBtn, cancelBtn, hideBtn);
-        Optional<ButtonType> result = closeVisualTabAlert.showAndWait();
-        if (result.get() == closeBtn) {
-          VisualViewTabPane.getTabs().remove(BasicViewTab);
-        } else if (result.get() == hideBtn) {
-          BasicViewTab.getContent().setVisible(false);
-        } else {
-          event.consume();
-        }
-        Runtime.getRuntime().gc();
-        Runtime.getRuntime().freeMemory();        
-      }
-    });
     
     //--fetching indicator
     fetchDataLabel.setVisible(false);
@@ -264,13 +165,13 @@ public class EXNMonitorMainViewController1 implements Initializable {
     progressBar.setPrefWidth(150);
     ((HBox)fetchDataLabel.getParent()).getChildren().add(progressBar);
     progressBar.setVisible(false);
-
     
     //--init database manager treeview
     userhome = System.getProperty("user.home");
-    // tree root
+    // tree root   
     dbTreeRoot = new TreeItem<>();
     dbTreeRoot.setExpanded(true);
+    
     sqldbTreeItemColor = "lightgrey";
     // set tree with tree root
     dbTreeView = new TreeView<>(dbTreeRoot);
@@ -279,53 +180,18 @@ public class EXNMonitorMainViewController1 implements Initializable {
     SQLiteTablesVBoxPane.getChildren().add(dbTreeView);
     VBox.setVgrow(dbTreeView, Priority.ALWAYS); 
     
-    //--maintain a recently opened file list 
-    ConnectStateLabel.setStyle("-fx-background-color:darkgrey;");
-    if (!recentFilePaths.getItems().isEmpty()) {
-      recentFilePaths.getItems().forEach(new Consumer<String>() {
-        @Override
-        public void accept(String recentFilePath) {
-          final MenuItem openRecentDBMenuItem = new MenuItem(recentFilePath);
-          openRecentDBsSubMenu.getItems().add(openRecentDBMenuItem);
-          openRecentDBMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-              final List recentFilePathList = new ArrayList<>();
-              recentFilePathList.add(recentFilePath);
-              sqldbTreeItemColor = "lightgrey";
-              updateDBManagerTreeView(recentFilePathList);
-              ConnectStateLabel.setText("Connected to: "+recentFilePath.substring(recentFilePath.lastIndexOf("/")+1));
-              ConnectStateLabel.setStyle("-fx-text-fill:whitesmoke;");              
-            }
-          });          
-        }
-      });
-    }
-    
     //--executes database operations concurrent to JavaFX operations.
     databaseExecutor = Executors.newFixedThreadPool(4, new DatabaseThreadFactory()); 
     
-    //createExnMonitorScript();
-    
-    
   }  
   
-  private void createExnMonitorScript(){
-    try {
-      try (final PrintWriter writer = new PrintWriter(userhome+"/ExnVizerGUI/ExnMonitorTB/runExnMonitor.sh", "UTF-8")) {
-        writer.println("#!/bin/bash");
-        writer.println("cd \"/home/mwang/ExnVizerGUI/ExnMonitorTB/dist\"");
-        //writer.println("cd \"/fast-nas/home/mwang/ExnVizerGUI/ExnMonitorTB/dist\"");
-        writer.println("mkdir -p \"${HOME}/ExnVizer_v1.0/ExnMonitorTB/dist/java_tmp\"");
-        writer.println("java -jar -Xms20m -XX:MinHeapFreeRatio=30 -XX:MaxHeapFreeRatio=50 -Djava.io.tmpdir=\"${HOME}/ExnVizer_v1.0/ExnMonitorTB/dist/java_tmp\" ExnMonitorTB.jar");
-      }
-    } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
-    }
-  }
   
-  /* MenuBar Actions */
-  private void OpenMultipleDBFiles(){
+  
+  
+  //===================
+  //* MenuBar Actions *
+  //===================
+  public void openMultipleDBFiles(){
     final FileChooser sqlDBChooser = new FileChooser();
     sqlDBChooser.setTitle("Open a SQLite Database File...");
     sqlDBChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("sqldb files", "*.sqldb"));
@@ -338,35 +204,27 @@ public class EXNMonitorMainViewController1 implements Initializable {
       dbFiles = sqlDBChooser.showOpenMultipleDialog(null);
       // if dbFiles is not null
       final List<String> sqldbPathList = new ArrayList<>();
-      //final List<String> sqldbNameList = new ArrayList<>();
       dbFiles.forEach(new Consumer<File>() {
         @Override
         public void accept(File t) {
-          recentFilePaths.push(t.getPath());
+          exnvizerMainViewController.getRecentFilePaths().push(t.getPath());
           sqldbPathList.add(t.getPath());
-          //sqldbNameList.add(t.getPath().substring(t.getPath().lastIndexOf("/")+1));
-          //System.out.println(t.getPath());
         }
       }); 
-      sqldbTreeItemColor = "#d6d6d6";
+      sqldbTreeItemColor = "#dad1d1";
       updateDBManagerTreeView(sqldbPathList);
+      dbTreeRoot.setExpanded(true);
     } catch (NullPointerException ex) {
       DBSelAlert.setTitle("Please Select a Database File!");
-      DBSelAlert.setContentText("No Database file is selected.");
+      DBSelAlert.setContentText("No Database File Selected.");
       DBSelAlert.showAndWait();       
-      ConnectStateLabel.setText("No Database Conncetion Found.");
-      ConnectStateLabel.setStyle("-fx-text-fill:#9a9490;");       
-    } finally{
-      ConnectStateLabel.setText("Database Conncetions are successfully created.");
-      ConnectStateLabel.setStyle("-fx-text-fill:#d6d6d6;");
     }
     
     Runtime.getRuntime().gc();
     Runtime.getRuntime().freeMemory();
   }  
   
-  private void closeAllDBFiles(){
-    closeAllDBMenuItem.setDisable(true);
+  public void closeAllDBConnections(){
     dbTreeRoot.getChildren().forEach(new Consumer<TreeItem<HBox>>() {
       @Override
       public void accept(TreeItem<HBox> sqldbTreeItem) {
@@ -379,10 +237,8 @@ public class EXNMonitorMainViewController1 implements Initializable {
     Runtime.getRuntime().freeMemory();
   }
   
-  private void removeAllDBFiles(){
-    closeAllDBMenuItem.setDisable(true);
-    removeAllDBMenuItem.setDisable(true);    
-    closeAllDBFiles();
+  public void removeAllDBFiles(){
+    closeAllDBConnections();
     dbTreeRoot.getChildren().clear();
     Runtime.getRuntime().gc();
     Runtime.getRuntime().freeMemory();
@@ -407,18 +263,12 @@ public class EXNMonitorMainViewController1 implements Initializable {
     });
   }    
   
-  /* update ConnectStateLabel */
-  public void updateConnectStateLabel(String dbConnectStateString, String CaseName){
-    if (CaseName == null) {
-      ConnectStateLabel.setText("Connected to "+dbConnectStateString);
-    } else{
-      ConnectStateLabel.setText("Connected to "+dbConnectStateString+" from "+CaseName);
-    }
-    
-    ConnectStateLabel.setStyle("-fx-text-fill:"+sqldbTreeItemColor+"; -fx-font-style:italic;");    
-  }
   
-  /* update DBManager TreeView */
+  
+  
+  //=============================
+  //* Update DBManager TreeView *
+  //=============================
   public void updateDBManagerTreeView(List<String> sqldbPathList){
     //--avoid opening already existed sqldb files in dbmanager
     final List<String> rootSqldbNameList = new ArrayList<>();
@@ -456,18 +306,22 @@ public class EXNMonitorMainViewController1 implements Initializable {
   }
 
   
-  /* Create Sqldb branches */
-  private void makeSqldbBranch(String sqldbPath, TreeItem<HBox> dbTreeRoot) {
+  
+  
+  //========================
+  //* Create SqlTable Tabs *
+  //========================
+  private void makeSqldbBranch(String sqldbPath, TreeItem<HBox> nonPararealEXNCaseTreeNode) {
     // create sqldbTreeItem
     final String sqldbName = sqldbPath.substring(sqldbPath.lastIndexOf("/")+1);
     final Label sqldbTreeItemLabel = new Label(sqldbName); 
     final HBox sqldbTreeItemHBox = new HBox(sqldbTreeItemLabel);
     final TreeItem<HBox> sqldbTreeItem = new TreeItem<>(sqldbTreeItemHBox);
-    dbTreeRoot.getChildren().add(sqldbTreeItem);
+    nonPararealEXNCaseTreeNode.getChildren().add(sqldbTreeItem);
     sqldbTreeItem.setExpanded(false);
     sqldbTreeItemLabel.setTooltip(new Tooltip(sqldbPath));
     // style sqldbTreeItem
-    final ImageView dbTreeIcon = new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/dbConnected.png")));
+    final ImageView dbTreeIcon = new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/image/dbConnected.png")));
     sqldbTreeItem.setGraphic(dbTreeIcon);
     sqldbTreeItemLabel.setStyle("-fx-text-fill:"+sqldbTreeItemColor+";"); 
     
@@ -509,7 +363,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
       @Override
       public void handle(ActionEvent event) {
         closeDatabase(sqldbTreeItem);
-        dbTreeRoot.getChildren().remove(sqldbTreeItem);
+        nonPararealEXNCaseTreeNode.getChildren().remove(sqldbTreeItem);
       }
     });
 
@@ -517,16 +371,13 @@ public class EXNMonitorMainViewController1 implements Initializable {
   
   private void connectDatabase(String sqldbPath, TreeItem<HBox> sqldbTreeItem, Label sqldbTreeItemLabel, MenuItem ConnectMenuItem, MenuItem closeDBMenuItem){
       // reset menu items
-      closeAllDBMenuItem.setDisable(false);
-      removeAllDBMenuItem.setDisable(false);      
-      closeChartsMenuItem.setDisable(false);
-      mergerDBMenuItem.setDisable(false); 
+//      closeChartsMenuItem.setDisable(false);
       
       sqldbTreeItemLabel.setStyle("-fx-font-weight: bold; -fx-text-fill:"+sqldbTreeItemColor+";");
       ConnectMenuItem.setDisable(true);
       closeDBMenuItem.setDisable(false);
       sqldbTreeItem.setExpanded(true);
-      sqldbTreeItem.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/dbConnected.png"))));
+      sqldbTreeItem.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/image/dbConnected.png"))));
       //----Get tblNameList and Create tblTreeItems
       //--Get tblNameList
       try (final Connection sqldbConnection = getConnection(sqldbPath)) {
@@ -546,13 +397,13 @@ public class EXNMonitorMainViewController1 implements Initializable {
           tblTreeItemCheckBox.setMnemonicParsing(false);
           final HBox tblTreeItemHBox = new HBox(tblTreeItemCheckBox);
           final TreeItem<HBox> tblTreeItem = new TreeItem<>(tblTreeItemHBox);
-          final ImageView tblTreeIcon = new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/dbtable.png")));
+          final ImageView tblTreeIcon = new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/image/dbtable.png")));
           tblTreeItem.setGraphic(tblTreeIcon);
           //tblTreeIcon.setStyle("-fx-padding: 2 0 0 0;");
           sqldbTreeItem.getChildren().add(tblTreeItem);          
         }
       } catch (SQLException ex) {
-        Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
       }
 
       sqldbTreeItem.getChildren().forEach(new Consumer<TreeItem<HBox>>() {
@@ -568,71 +419,72 @@ public class EXNMonitorMainViewController1 implements Initializable {
   }
   
   private ChangeListener getTblCheckBoxChangeListener(String sqldbPath, JFXCheckBox tblCheckBox, TreeItem<HBox> tblTreeItem, TreeItem<HBox> sqldbTreeItem){
+    
     final ChangeListener tblCheckBoxChangeListener = new ChangeListener<Boolean>() {
       @Override
       public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        final String sqldbName = sqldbPath.substring(sqldbPath.lastIndexOf("/")+1, sqldbPath.lastIndexOf("."));
+        Tab sqlDBTab = null;
+        TabPane sqlTableChartTabPane = null;
+        
         if (newValue) {
-          final Tab selTab = createSqlTableTab(sqldbPath, tblCheckBox);
-          selTab.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/chartTabIcon.png"))));
-          MonitorViewTabPane.getTabs().add(selTab);
-          MonitorViewTabPane.getSelectionModel().select(MonitorViewTabPane.getTabs().size()-1);
-          //----sync closing action with the sqldbTreeItem branch
-          selTab.setOnCloseRequest(new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-              //----when closing chartTab, confirm with user if just hide chart instead of closing it.
-              final Alert closeDBAlert = new Alert(Alert.AlertType.CONFIRMATION);
-              closeDBAlert.setTitle("Closing "+selTab.getText()+" chart:");
-              closeDBAlert.setHeaderText("Do you really want to close current chart?");
-              closeDBAlert.setContentText("NOTE:This will remove all your setting data on the chart!\nOtherwise, you can hide the chart instead.");
-              final ButtonType closeBtn = new ButtonType("Yes,close", ButtonBar.ButtonData.APPLY);
-              final ButtonType cancelBtn = new ButtonType("Cancel",ButtonBar.ButtonData.CANCEL_CLOSE);
-              final ButtonType hideBtn = new ButtonType("Hide it",ButtonBar.ButtonData.BACK_PREVIOUS);
-              closeDBAlert.getButtonTypes().setAll(closeBtn, cancelBtn, hideBtn);
-              
-              
-              final Optional<ButtonType> result = closeDBAlert.showAndWait();
-              if (result.get() == closeBtn) {
-                for (TreeItem<HBox> tblTreeItem : sqldbTreeItem.getChildren()) {
-                  final JFXCheckBox cb = ((JFXCheckBox)(tblTreeItem.getValue().getChildren().get(0)));
-                  if (cb.getText().equals(selTab.getText())) {
-                    cb.setSelected(false);
-                    break;// TWO HOURS FOR DEBUGGING THIS: just add the break to avoid an entire for loop! amen!-=-0
-                  }
-                }
-              } else if (result.get() == hideBtn) {
-                selTab.getContent().setVisible(false);
-              } else {
-                event.consume();
-              }
-              
-              
-              Runtime.getRuntime().gc();
-              Runtime.getRuntime().freeMemory();
-            }
-          });
+          
+          // create a sqlDBTab and add it to the generalDBTabPane
+          if (checkTabExit(sqldbName,sqlDBTabPane) != null) {
+            sqlTableChartTabPane = (TabPane)((Tab)checkTabExit(sqldbName,sqlDBTabPane)).getContent();
+          } else {
+            sqlDBTab = new Tab(sqldbName);
+            sqlTableChartTabPane = new TabPane();
+            sqlTableChartTabPane.setSide(Side.BOTTOM);  
+            sqlTableChartTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+            sqlDBTab.setContent(sqlTableChartTabPane);
+            sqlDBTabPane.getTabs().addAll(sqlDBTab);
+            sqlDBTabMap.put(sqldbName, sqlDBTab);
+          }
+          sqlDBTabPane.getSelectionModel().select((Tab)sqlDBTabMap.get(sqldbName));
+          
+          final Tab sqlTableChartTab = createSqlTableTab(sqldbPath, tblCheckBox);
+          sqlTableChartTab.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/image/chartTabIcon.png"))));
+          sqlTableChartTabPane.getTabs().addAll(sqlTableChartTab);
+          sqlTableChartTabPane.getSelectionModel().select(sqlTableChartTabPane.getTabs().size()-1);
+          
         } else if (!newValue) {
-          //((JFXCheckBox)(tblTreeItem.getValue().getChildren().get(0))).setStyle("-fx-text-fill: #d6d6d6;");
-          for (Tab SQLTableTab : MonitorViewTabPane.getTabs()) {
-            if ( SQLTableTab.getText().equals(((JFXCheckBox)(tblTreeItem.getValue().getChildren().get(0))).getText()) &&
-                (SQLTableTab.getTooltip().getText().equals(sqldbPath.substring((sqldbPath.lastIndexOf("/")+1), sqldbPath.lastIndexOf("."))))) {
-              if(SQLTableTab.isSelected()){
-                MonitorViewTabPane.getTabs().remove(MonitorViewTabPane.getSelectionModel().getSelectedItem());
+          final Tab closingDBTab = (Tab)sqlDBTabMap.get(sqldbName);
+          final TabPane closingDBTableTabPane = (TabPane)closingDBTab.getContent();
+          for (Tab closingTableTab : closingDBTableTabPane.getTabs()) {
+            if ( closingTableTab.getText().equals(((JFXCheckBox)(tblTreeItem.getValue().getChildren().get(0))).getText()) ) {
+              if(closingTableTab.isSelected()){
+                closingDBTableTabPane.getTabs().remove(closingDBTableTabPane.getSelectionModel().getSelectedItem());
               }
-              MonitorViewTabPane.getTabs().remove(SQLTableTab);
-              break;// TWO HOURS FOR DEBUGGING THIS: just add the break to avoid an entire for loop! amen!
+              closingDBTableTabPane.getTabs().remove(closingTableTab);
+              break;
             }
             Runtime.getRuntime().gc();
             Runtime.getRuntime().freeMemory();                    
           }
+          
         }          
       }
     }; 
     return tblCheckBoxChangeListener;
   }
   
+  private Tab checkTabExit(String sqldbName, TabPane generalDBTabPane){
+    Tab exitTab = null;
+//    System.out.println("sqldbName: "+sqldbName);
+    for (Tab tab : generalDBTabPane.getTabs()) {
+//      System.out.println("tab: "+tab.getText());
+      if ( tab.getText().equals(sqldbName) ) {
+        exitTab = tab;
+        break;
+      }                 
+    }    
+    
+    return exitTab;
+  }
+  
   private void closeDatabase(TreeItem<HBox> sqldbTreeItem){
-    sqldbTreeItem.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/dbClosed.png"))));
+    sqldbTreeItem.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/org/mwang/exnmonitor/resource/image/dbClosed.png"))));
     ((Label)(sqldbTreeItem.getValue().getChildren().get(0))).setStyle("-fx-font-weight: regular; -fx-text-fill: #d6d6d6;");
     sqldbTreeItem.setExpanded(false);
     ((Label)(sqldbTreeItem.getValue().getChildren().get(0))).getContextMenu().getItems().get(0).setDisable(false);
@@ -647,12 +499,20 @@ public class EXNMonitorMainViewController1 implements Initializable {
       }
     });
     sqldbTreeItem.getChildren().clear();
+    
+    final String sqldbName = ((Label)(sqldbTreeItem.getValue().getChildren().get(0))).getText();
+    sqlDBTabPane.getTabs().remove((Tab)sqlDBTabMap.get(sqldbName.subSequence(0, sqldbName.lastIndexOf("."))));
+    
     Runtime.getRuntime().gc();
     Runtime.getRuntime().freeMemory();    
   }
   
   
-  /* create SqlTable Tabs */
+  
+  
+  //========================
+  //* Create SqlTable Tabs *
+  //========================
   private Tab createSqlTableTab(String sqldbPath, JFXCheckBox tblCheckBox){
     //---- Create subtabpane
     final String selTblName = tblCheckBox.getText();
@@ -661,7 +521,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
     SqlTableTab.setTooltip(new Tooltip(sqldbPath.substring((sqldbPath.lastIndexOf("/")+1), sqldbPath.lastIndexOf("."))));
     
     //----setup ChartSplitPane as container
-    final ScrollPane ExnChartScrollPane = createExnChartScrollPane(sqldbPath,tblCheckBox);
+    final ScrollPane ExnChartScrollPane = initEXNMonitorChartView(sqldbPath,tblCheckBox);
     SqlTableTab.setContent(ExnChartScrollPane);
     SqlTableTab.selectedProperty().addListener(new ChangeListener<Boolean>() {
       @Override
@@ -677,8 +537,12 @@ public class EXNMonitorMainViewController1 implements Initializable {
   }  
   
   
-  /* create Chart SplitPane */
-  private ScrollPane createExnChartScrollPane(String sqldbPath, JFXCheckBox tblCheckBox){
+  
+  
+  //==========================
+  //* Create Chart SplitPane *
+  //==========================  
+  private ScrollPane initEXNMonitorChartView(String sqldbPath, JFXCheckBox tblCheckBox){
     int StaticLastRowIdInit = 0;
     try (final Connection initConnection = getConnection(sqldbPath)) {
       final PreparedStatement stXLastRowId = initConnection.prepareStatement("SELECT rowid FROM "+tblCheckBox.getText()+" ORDER BY rowid DESC LIMIT 1");
@@ -686,7 +550,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
       StaticLastRowIdInit = rsXLastRowId.getInt("rowid");
       System.out.println("lastRowId when opening current chart: "+StaticLastRowIdInit);
     } catch (SQLException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
     }
     
     /****************************************************************
@@ -909,7 +773,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
     final StackPane ExnChartStackPane = new StackPane();
     ExnChartStackPane.setStyle("-fx-background-color:transparent; -fx-border-color: rgba(128,128,128,0.3); -fx-border-radius: 10px;");
     DragResizer.makeResizable(ExnChartStackPane);
-    ExnChartStackPane.setPrefHeight(650);
+    //ExnChartStackPane.setPrefHeight(650);
       
     //--setup ExnChartVBox
     VBox.setVgrow(toolBar, Priority.NEVER);
@@ -937,7 +801,8 @@ public class EXNMonitorMainViewController1 implements Initializable {
     ExnChart.setAnimated(false);
     ExnChart.setTitle(selTblName);
     ExnChart.setCreateSymbols(false);
-    ExnChart.setLegendSide(Side.BOTTOM);
+//    ExnChart.setLegendSide(Side.BOTTOM);
+    ExnChart.setLegendVisible(false);
     ExnChart.setHorizontalGridLinesVisible(true);
     ExnChart.setVerticalGridLinesVisible(true);
     //--setup basic axis
@@ -964,13 +829,13 @@ public class EXNMonitorMainViewController1 implements Initializable {
         exportChartAsPng(ExnChart);
       }
     });
-    exportChartMenuItem.setDisable(false);
-    exportChartMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        exportChartAsPng(ExnChart);
-      }
-    });
+//    exportChartMenuItem.setDisable(false);
+//    exportChartMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+//      @Override
+//      public void handle(ActionEvent event) {
+//        exportChartAsPng(ExnChart);
+//      }
+//    });
     ExnChart.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
       @Override
       public void handle(ContextMenuEvent event) {
@@ -1038,12 +903,14 @@ public class EXNMonitorMainViewController1 implements Initializable {
         xMaxValue = rsXValue.getDouble("Simulation_time");  
       }
       double delta = xMaxValue- xMinValue;
-      xFieldRangeSlider.setMin(xMinValue - delta*0.01);
-      xFieldRangeSlider.setMax(xMaxValue + delta*0.1);
+      //xFieldRangeSlider.setMin(xMinValue - delta*0.01);
+      //xFieldRangeSlider.setMax(xMaxValue + delta*0.1);
+      xFieldRangeSlider.setMin(xMinValue);
+      xFieldRangeSlider.setMax(xMaxValue);
       xFieldRangeSlider.setLowValue(xFieldRangeSlider.getMin());
       xFieldRangeSlider.setHighValue(xFieldRangeSlider.getMax());      
     } catch (SQLException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
     }    
     
     
@@ -1073,7 +940,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
         }
       }
     } catch (SQLException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
     }
     
     
@@ -1117,7 +984,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
                 //--update line series from databases based on StaticLastRowIdInit
                 updateSingleFieldSeries(xFieldRangeSlider,symbolTog, cb, Integer.parseInt(CurrentDataSize.getText()), sqldbPath, selXFieldName, cb.getText(), selTblName, ExnChart);
               } catch (SQLException ex) {
-                Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
               }
               Runtime.getRuntime().gc();
               Runtime.getRuntime().freeMemory();              
@@ -1264,7 +1131,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
           yLUBoundHBox.setDisable(true);
           MonitorSetVBox.setDisable(true);
           /* init button resource */
-          ExnChart.getStylesheets().add(getClass().getResource("/org/mwang/exnmonitor/resource/dynamicChartMode.css").toExternalForm());
+          ExnChart.getStylesheets().add(getClass().getResource("/org/mwang/exnmonitor/resource/style/dynamicChartMode.css").toExternalForm());
           dynamicTog.setText("Monitor On");
           zoomBtn.setDisable(true);
           moveBtn.setDisable(true);
@@ -1410,7 +1277,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
           xLUBoundHBox.setDisable(false);
           yLUBoundHBox.setDisable(false);
           MonitorSetVBox.setDisable(false);
-          ExnChart.getStylesheets().remove(getClass().getResource("/org/mwang/exnmonitor/resource/dynamicChartMode.css").toExternalForm());
+          ExnChart.getStylesheets().remove(getClass().getResource("/org/mwang/exnmonitor/resource/style/dynamicChartMode.css").toExternalForm());
           fetchDataLabel.setVisible(false);
           progressBar.setVisible(false);
           logger.log(Level.INFO, "{0} and its Timeline are closed.", sqldbPath.substring(sqldbPath.lastIndexOf("/")+1));
@@ -1462,6 +1329,10 @@ public class EXNMonitorMainViewController1 implements Initializable {
   
   
   
+  
+  //=========================================
+  //* Fetch data from SQlite database files *
+  //=========================================  
   /*******************************************************************************************************
   * Fetch Exn/Aero-CFDSolver-Data{ ConvergenceXYData + MonitorPointsXYData } from SQLite database files: * 
   * 1) ConvergenceExnXYData//////////////                                                                * 
@@ -1607,7 +1478,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
       Runtime.getRuntime().gc();
       Runtime.getRuntime().freeMemory();      
     } catch (SQLException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
     }
 
      
@@ -1687,7 +1558,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
       objTimer.getKeyFrames().clear();
       objTimer.getKeyFrames().add(new KeyFrame(new Duration(20)));
     } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
     }
   }  
   
@@ -1717,45 +1588,25 @@ public class EXNMonitorMainViewController1 implements Initializable {
     
     if (chartFile != null) {
       try {
-        ImageIO.write(ExnChartImage, ".png", chartFile);
+        ImageIO.write(ExnChartImage, "png", chartFile);
       } catch (IOException ex) {// never throw.
-      } 
-      imageSelAlert.setTitle("ExnChart saved: "+chartFile.getName());
+      } finally{
+        imageSelAlert.setContentText(chartFile.getName()+" is saved.");
+        imageSelAlert.showAndWait();
+      }
     } else{
-      imageSelAlert.setTitle("ExnChart is not saved!");
+      imageSelAlert.setTitle("Chart is not saved!");
       imageSelAlert.setContentText("Please specify a valid name and path for saving the chart.");
       imageSelAlert.showAndWait();
     }
 
   }
-  
+ 
 
   
-  /********************************************************************************************
-  * sqlite-jdbc wrapper: set Read-Only flag when opening a connection to SQlite database files
-  * 
-  *********************************************************************************************/
-  private Connection getUnPooledConnection(String sqldbPath){
-    Connection conn = null;
-    try {
-      //logger.info("Getting a database connection");
-      
-//    SQLiteConfig dbConfig = new SQLiteConfig();
-//    dbConfig.setReadOnly(true);
-      
-      final Properties config = new Properties();
-      config.setProperty("open_mode", "1");  //1 == readonly
-      
-      Class.forName("org.sqlite.JDBC").newInstance();
-      conn = DriverManager.getConnection("jdbc:sqlite:"+sqldbPath,config);
-      
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
-    return conn;
-  } 
-  
+  //==============================================================================================
+  //* sqlite-jdbc wrapper: set Read-Only flag when opening a connection to SQlite database files *
+  //==============================================================================================
   private Connection getConnection(String sqldbPath){
     Connection pooledConn = null;
     try {
@@ -1783,7 +1634,7 @@ public class EXNMonitorMainViewController1 implements Initializable {
       pooledConn = pooled.getConnection();
       
     } catch (SQLException ex) {
-      Logger.getLogger(EXNMonitorMainViewController1.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EXNMonitorMainViewController.class.getName()).log(Level.SEVERE, null, ex);
     }
     
     return pooledConn;
