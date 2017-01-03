@@ -1,7 +1,7 @@
 # EXNVizer 数据可视化桌面应用
 > A Real-time Data Visualization Desktop Application Built Upon Java/JavaFX8 + SQLite + Gradle
 
-<a href="http://mwang27.github.io" target="_blank">EXNVizer博客文章</a> | <a href="http://mwang27.github.io" target="_blank">EXNVizer使用文档</a> 
+<a href="http://mwang27.github.io" target="_blank">博客文章</a> | <a href="http://mwang27.github.io" target="_blank">使用文档</a> 
 
 ## Introduction
 
