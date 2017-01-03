@@ -1,0 +1,174 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15-Jun-2016, 7:28:31 PM
+    Author     : mwang
+*/
+.status-propF20 {
+    -fx-background-color:#ac8fbf;
+}
+.status-propF19 {
+    -fx-background-color:#fa8a2c;
+}
+.status-propF18 {
+    -fx-background-color:#b05097;
+}
+.status-propF17 {
+    -fx-background-color:#c4e781;
+}
+.status-propF16 {
+    -fx-background-color:#a5dcec;
+}
+.status-propF15 {
+    -fx-background-color:#de5afe;
+}
+.status-propF14{
+    -fx-background-color:#acd1ce;
+}
+.status-propF13 {
+    -fx-background-color:#42cdab;
+}
+.status-propF12 {
+    -fx-background-color:#8faca6;
+}
+.status-propF11 {
+    -fx-background-color:#cfbfaa;
+}
+.status-propF10 {
+    -fx-background-color:#87ed89;
+}
+.status-propF9 {
+    -fx-background-color:#0da777;
+}
+.status-propF8 {
+    -fx-background-color:#E98CA2;
+}
+.status-propF7 {
+    -fx-background-color:#8CCFA4;
+}
+.status-propF6{
+    -fx-background-color:#F1D0A1;
+}
+.status-propF5 {
+    -fx-background-color:#A8C9E6;
+}
+.status-propF4 {
+    -fx-background-color:#C6A2CD;
+}
+.status-propF3 {
+    -fx-background-color:#57C4C4;
+}
+.status-propF2 {
+    -fx-background-color:#C9D37C;
+}
+.status-propF1 {
+    -fx-background-color:#898FC6;
+}
+.status-propC {
+    -fx-background-color:rgb(56,69,92);
+}
+
+.chart{
+    /*-fx-padding: 15 0 10 0;*/
+    -fx-padding: -5 -200 0 -5;
+    -fx-background-color:  #2C2E3D;
+    /*-fx-background-radius: 10px;*/
+    /*-fx-border-color:  rgba(128,128,128,0.3);*/
+    /*-fx-border-radius: 4px;*/
+}
+.chart-title{
+    -fx-padding: 10 -100 0 0;
+    -fx-font-size: 6px;
+    -fx-font-family: "System"; 
+    -fx-font-weight: bold;
+    -fx-text-fill: whitesmoke;
+}
+.chart-content{
+    /*-fx-padding: 5 -285 10 5;*/
+    -fx-padding: 5 0 10 5;
+}
+
+
+
+.chart-plot-background{
+    /*-fx-border-width: 2;*/
+    -fx-border-color: transparent;
+    -fx-background-color:  #2C2E3D;
+}
+/*.chart-legend .label{
+    -fx-font-family: "System";
+    -fx-font-size:10pt;
+    -fx-text-fill: rgb(113,113,113);
+    -fx-font-weight: bold;
+}*/
+
+.level-legend {
+  /*-fx-padding: 10;*/ 
+  -fx-border-width: 2; 
+  -fx-background-color: rgba(211, 211, 211, 0.5); 
+  -fx-border-color: derive(rgba(211, 211, 211, 0.7), 10%);
+}
+
+.axis{
+    /*-fx-font-size: 1.4em;*/
+    -fx-tick-label-font-size: 5px;
+    /*-fx-tick-label-font-weight: bold;*/
+    -fx-tick-label-fill: #dad1d1;
+    -fx-tick-length: 4;
+    -fx-minor-tick-length: 2;
+    -fx-minor-tick-count: 1;  
+    -fx-stoke: rgb(113,113,113);
+}
+.axis-label{
+    -fx-font-family: "System";
+    -fx-font-size: 5pt;
+    /*-fx-font-weight: bold;*/
+    -fx-text-fill: whitesmoke;
+    -fx-padding:5 25 3 0;
+}
+
+.axis-tick-mark{
+    -fx-stroke: rgb(113,113,113);
+    -fx-stroke-weight: 0.5;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: rgb(113,113,113);
+}
+
+.chart-vertical-grid-lines{
+    /*-fx-stroke: rgb(113,113,113);*/
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines{
+    -fx-stroke: #393939;
+    /*-fx-stroke: transparent;*/
+    -fx-stroke-weight:0.1;
+}
+.chart-vertical-zero-line, .chart-horizontal-zero-line {
+    -fx-stroke: rgb(113,113,113);
+    
+}
+
+
+.default-color0.chart-bar { -fx-bar-fill: #57ABD7; }
+.default-color1.chart-bar { -fx-bar-fill: #A0E674; }
+.default-color2.chart-bar { -fx-bar-fill: #F37469; }
+.default-color3.chart-bar { -fx-bar-fill: #8085E9; }
+.default-color4.chart-bar { -fx-bar-fill: #F15C80; }
+.default-color5.chart-bar { -fx-bar-fill: #EFA8A8; }
+.default-color6.chart-bar { -fx-bar-fill: #E4D354; }
+.default-color7.chart-bar { -fx-bar-fill: #FFDEAD; }
+.default-color8.chart-bar { -fx-bar-fill: #794044; }
+
+.onHover{
+    -fx-scale-x: 1.35;
+    -fx-scale-y: 1.35;   
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10;
+}
+.seriesOnHover{
+    -fx-stroke-width: 3.2px;
+}

@@ -1,0 +1,829 @@
+/* 
+    Created on : 17-Sep-2015, 2:55:51 PM
+    Author     : mwang
+*/
+
+/****************************************************************
+  define some css rules 
+****************************************************************/
+#rootPane {
+    -light-black: rgb(74, 75, 78);
+    -dark-highlight: rgb(87, 89, 92);
+    -dark-black: rgb(39, 40, 40);
+    -darkest-black: rgb(5, 5, 5);
+    -mid-gray: rgb(216, 222, 227);
+    -fx-background-color: -mid-gray;
+}
+
+
+/****************************************************************
+  TabPane Css Skin
+****************************************************************/
+.basicVisual-tabpane .tab-pane:bottom .tab-content-area{
+    -fx-background-color: transparent;
+    -fx-border-color:  transparent transparent transparent transparent;
+} 
+.basicVisual-tabpane .tab-header-area{
+    -fx-padding: 0 0 0 0;
+}
+.basicVisual-tabpane .tab-header-background {
+    -fx-background-color:  rgba(128,128,128,0.3);
+    -fx-background-radius: 0 0 0 0;
+    -fx-background-insets: -2 0 1 0;
+}
+
+.basicVisual-tabpane .tab{
+    -fx-background-color:  rgba(61, 67, 81,0.7);
+    -fx-background-radius: 8 8 8 8;
+}
+.basicVisual-tabpane .tab:selected{
+    -fx-background-color: rgba(46,51,55,0.9);
+}
+.basicVisual-tabpane .tab:hover{
+    -fx-text-fill: linear-gradient(white,#dad1d1);
+}
+
+.basicVisual-tabpane .tab:selected .focus-indicator{
+    -fx-border-color: transparent;
+}
+.basicVisual-tabpane .tab:selected .tab-label { 
+    -fx-font-weight: bold;
+}
+.basicVisual-tabpane .tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #dad1d1;
+    -fx-font-size: 12px;
+}
+.basicVisual-tabpane .tab-close-button {
+    -fx-background-color: #dad1d1;
+    -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
+    -fx-scale-shape: false;
+    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.4), 1, 0.0 , 0, 1);
+}
+
+
+
+.dbTabPane .tab-pane:bottom .tab-content-area{
+    -fx-background-color: transparent;
+    -fx-border-color:  transparent transparent transparent transparent;
+} 
+.dbTabPane .tab-header-area{
+    -fx-padding: -2 0 1 0;
+}
+.dbTabPane .tab-header-background {
+    /*-fx-background-color:  rgba(128,128,128,0.3);*/
+    -fx-background-color:  transparent;
+    -fx-background-radius: 0 0 0 0;
+    -fx-background-insets: -2 0 1 0;
+    /*-fx-border-color: transparent transparent rgba(61, 67, 81,0.9) transparent;*/
+}
+
+.dbTabPane .tab{
+    /*-fx-background-color:  rgba(61, 67, 81,0.7);*/
+    -fx-background-color:  rgba(61, 67, 81,0.9);
+    -fx-background-radius: 8 8 8 8;
+    -fx-background-insets: 3 0 1 0;
+}
+.dbTabPane .tab:selected{
+    -fx-background-color: rgba(46,51,55,0.9);
+}
+.dbTabPane .tab:hover{
+    -fx-text-fill: linear-gradient(white,#dad1d1);
+}
+
+.dbTabPane .tab:selected .focus-indicator{
+    -fx-border-color: transparent;
+}
+.dbTabPane .tab:selected .tab-label { 
+    -fx-font-weight: bold;
+}
+.dbTabPane .tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #dad1d1;
+    -fx-font-size: 12px;
+}
+.dbTabPane .tab-close-button {
+    -fx-background-color: #dad1d1;
+    -fx-shape: "M 0,0 H1 L 4,3 7,0 H8 V1 L 5,4 8,7 V8 H7 L 4,5 1,8 H0 V7 L 3,4 0,1 Z";
+    -fx-scale-shape: false;
+    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.4), 1, 0.0 , 0, 1);
+}
+
+/****************************************************************
+  RadioButton Css Skin
+****************************************************************/
+.radio-button{
+    -fx-text-fill: #dad1d1;
+}
+.radio-button:selected{
+    -fx-font-weight: bold;
+}
+
+
+
+/****************************************************************
+  TitledPane Css Skin
+****************************************************************/
+.titled-pane > .title > .arrow-button > .arrow{
+    -fx-background-color: yellowgreen,#FFFF8D;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 2.5;
+    -fx-padding: 6.3px 4px 6.3px 4px;
+    -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";
+    /*-fx-border-color:transparent;*/
+}
+
+.titledpanewhiteText{
+    -fx-border-color: rgba(128,128,128,0.3);
+    -fx-background-color:transparent;
+    -fx-border-radius:4;    
+    -fx-background-radius:4;    
+}
+.titledpanewhiteText .title {
+    -fx-text-fill: #dad1d1;
+    -fx-background-color: rgba(128,128,128,0.3);    
+    -fx-background-radius: 4 4 0 0;
+  -fx-background-insets: 0 0 0 0;
+  -fx-padding: 0.15em 0.75em 0.15em 0.2em;
+  -fx-font-weight: bold;
+}
+.titledpanewhiteText .title .text{
+    -fx-fill: #dad1d1;
+}
+.titledpanewhiteText .content {
+    -fx-text-fill: #dad1d1;
+    -fx-background-color:  rgba(128,128,128,0.3);
+    -fx-border-insets: 0 0 0 0;
+    -fx-border-color:transparent;
+    -fx-border-radius:4;
+    -fx-background-radius: 0 0 4 4;
+}
+
+.titledpaneLeftText{
+    -fx-border-color: rgba(128,128,128,0.3);
+    -fx-background-color:transparent;  
+    -fx-border-radius:0;    
+    -fx-background-radius:0;
+}
+.titledpaneLeftText .title {
+    -fx-background-color: rgba(128,128,128,0.3);    
+  -fx-background-radius: 0;
+  -fx-background-insets: 0 0 0 0;
+  -fx-padding: 0.2em 0.75em 0.25em 0.6em;
+  -fx-font-weight: bold;
+}
+.titledpaneLeftText .title .text{
+    -fx-fill: #dad1d1;
+}
+.titledpaneLeftText .content {
+    -fx-text-fill: #dad1d1;
+    -fx-background-color:  rgba(128,128,128,0.3);
+    -fx-border-insets: 0;
+    -fx-border-color:transparent;
+    -fx-border-radius:0;
+    -fx-background-radius: 0 0 4 4;
+}
+
+
+/****************************************************************
+  ListView Css Skin
+****************************************************************/
+.list-cell:filled:hover {
+    -fx-background-color: rgba(125, 125, 125, 0.2);
+}
+.list-cell{
+    -fx-background-color: transparent;
+}
+
+
+/****************************************************************
+  MenuBar Css Skin
+****************************************************************/
+.menu-bar > .container > .menu:openvertically > .label > .text{
+    -fx-fill: #dad1d1;
+}
+.menu-item {
+    -fx-background-color:  rgba(56, 59, 76,1.0);
+    -fx-padding: 0.333333em 0.41777em 0.333333em 0.41777em;  /* 4 5 4 5 */
+}
+.context-menu{
+    -fx-background-color:  rgba(56, 59, 76,1.0);
+}
+.menu-item >.label {
+    -fx-padding: 0em 0.5em 0em 0em;
+    -fx-text-fill: #dad1d1;
+}
+.menu-item:hover {
+     -fx-background-color:  rgba(74, 77, 93,1.0);
+     /*-fx-background-color:  rgba(219,96,94,1.0);*/
+}
+.menu{
+    -fx-accent: rgba(56, 59, 76, 0.8);
+    /*-fx-accent:  rgba(219,96,94,1.0);*/
+}
+
+.label{
+    -fx-font-size: 13px;
+}
+
+
+/****************************************************************
+  SplitPane Css Skin
+****************************************************************/
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-background-color:    rgba(46,51,55,0.9);
+    -fx-padding: 0 3 3 0;
+}
+.split-pane:vertical > .split-pane-divider {
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-background-color:  rgba(46,51,55,0.9);
+    -fx-padding: 2 2 2 0;
+}
+
+.split-pane{
+     -fx-background-color: transparent;
+}
+
+
+
+/****************************************************************
+  ToolTip Css Skin
+****************************************************************/
+.tooltip {
+    -fx-background: rgba(30,30,30);
+    -fx-background-color: rgba(30,30,30,0.8);
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.4em 0.4em 0.4em 0.4em;
+    -fx-font-size: 0.9em;
+}
+.toolTipBorder0 {
+    -fx-border-color: #57ABD7;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder1 {
+    -fx-border-color: #A0E674;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder2{
+    -fx-border-color: #F37469;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder3{
+    -fx-border-color: #8085E9;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder4{
+    -fx-border-color: #F15C80;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder5{
+    -fx-border-color: #EFA8A8;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder6{
+    -fx-border-color: #E4D354;
+     -fx-border-width: 1.5;
+}
+.toolTipBorder7{
+    -fx-border-color: #FFDEAD;
+     -fx-border-width: 1.5;
+}
+
+
+/****************************************************************
+  CheckBox Css Skin white
+****************************************************************/
+
+
+
+.jfx-check-box{
+    -fx-checked-color: #FFFF8D;
+    -fx-text-fill:#dad1d1;
+    -fx-graphic-text-gap:2px;
+}
+.jfx-check-box:selected{
+    -fx-font-weight: bold;
+}
+
+.checkboxgrey .check-box{
+    -fx-text-fill: #dad1d1;
+}
+.check-box{
+    -fx-text-fill: #dad1d1;
+}
+.check-box:selected{
+    -fx-font-weight:bold;
+}
+.selCheckBox0:selected { -fx-text-fill: #57ABD7;}
+.selCheckBox1:selected { -fx-text-fill: #A0E674;}
+.selCheckBox2:selected { -fx-text-fill: #F37469;}
+.selCheckBox3:selected { -fx-text-fill: #8085E9;}
+.selCheckBox4:selected { -fx-text-fill: #F15C80;}
+.selCheckBox5:selected { -fx-text-fill: #EFA8A8;}
+.selCheckBox6:selected { -fx-text-fill: #E4D354;}
+.selCheckBox7:selected { -fx-text-fill: #FFDEAD;}
+.selCheckBox8:selected { -fx-text-fill: #794044;}
+
+
+.jfx-button{
+    -fx-background-color: rgba(128,128,128,0.3);
+}
+
+
+/****************************************************************
+  Chart Skin  4
+****************************************************************/
+.chart{
+    -fx-padding: 15 0 10 0;
+    -fx-background-color:  #2C2E3D;
+    -fx-background-radius: 10px;
+    -fx-border-color:  rgba(128,128,128,0.3);
+    -fx-border-radius: 10px;
+}
+.chart-title{
+    -fx-padding: 0 5 5 5;
+    -fx-font-size: 18pt;
+    -fx-font-family: "System"; 
+    -fx-font-weight: bold;
+    -fx-text-fill: #dad1d1;
+}
+.chart-content{
+    -fx-padding: 5 84 10 5;
+}
+.chart-plot-background{
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-color: #2C2E3D;
+}
+.chart-legend .label{
+    -fx-font-family: "System";
+    -fx-font-size:10pt;
+    -fx-text-fill: rgb(113,113,113);
+    -fx-font-weight: bold;
+}
+
+.axis{
+    -fx-font-size: 1.4em;
+    -fx-tick-label-font-size: 11px;
+    -fx-tick-label-font-weight: bold;
+    -fx-tick-label-fill: #dad1d1;
+    -fx-tick-length: 12;
+    -fx-minor-tick-length: 7;
+    -fx-minor-tick-count: 2; 
+    -fx-stoke: #dad1d1;
+    -fx-stroke-weight:2;
+}
+.axis-label{
+    -fx-font-family: "System";
+    -fx-font-size: 11pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #dad1d1;
+    -fx-padding:5 0 0 0;
+}
+.axis-tick-mark{
+    -fx-stroke: #dad1d1;
+    -fx-stroke-width: 1.6;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #dad1d1;
+}
+
+.chart-vertical-grid-lines{
+    -fx-stroke: rgb(113,113,113);
+}
+.chart-horizontal-grid-lines{
+    -fx-stroke: rgb(113,113,113);
+}
+.chart-vertical-zero-line, .chart-horizontal-zero-line {
+    -fx-stroke: rgb(113,113,113);
+}
+.chart-series-line {    
+    -fx-stroke-width: 2.5px;
+}
+
+.default-color0.chart-series-line { -fx-stroke: #57ABD7; }
+.default-color1.chart-series-line { -fx-stroke: #A0E674; }
+.default-color2.chart-series-line { -fx-stroke: #F37469; }
+.default-color3.chart-series-line { -fx-stroke: #8085E9; }
+.default-color4.chart-series-line { -fx-stroke: #F15C80; }
+.default-color5.chart-series-line { -fx-stroke: #EFA8A8; }
+.default-color6.chart-series-line { -fx-stroke: #E4D354; }
+.default-color7.chart-series-line { -fx-stroke: #FFDEAD; }
+.default-color8.chart-series-line { -fx-stroke: #794044; }
+
+.onHover{
+    -fx-scale-x: 1.35;
+    -fx-scale-y: 1.35;   
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10;
+}
+.seriesOnHover{
+    -fx-stroke-width: 3.2px;
+}
+
+/****************************************************************
+  chart-line-symbol
+****************************************************************/
+.default-color0.chart-line-symbol { /* hollow circle */
+    -fx-background-color: #57ABD7, #dad1d1;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+.default-color1.chart-line-symbol { /* hollow square */
+    -fx-background-color: #A0E674, #dad1d1; 
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 0px;
+    -fx-padding: 5px 5px 5px 5px;
+}
+.default-color2.chart-line-symbol { /* hollow diamond */
+    -fx-background-color: #F37469, #dad1d1; 
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 2.5;
+    -fx-padding: 7px 5px 7px 5px;
+    -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";  
+}
+.default-color3.chart-line-symbol { /* hollow triangle */
+    -fx-background-color: #8085E9, #dad1d1; 
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 2;
+    -fx-padding: 6px 6px 6px 6px;
+    -fx-shape: "M5,0 L10,8 L0,8 Z";
+}
+.default-color4.chart-line-symbol { /* cross */
+    -fx-background-color: #F15C80; 
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-shape: "M2,0 L5,4 L8,0 L10,0 L10,2 L6,5 L10,8 L10,10 L8,10 L5,6 L2,
+    10 L0,10 L0,8 L4,5 L0,2 L0,0 Z";
+}
+.default-color5.chart-line-symbol { /* solid circle */
+    -fx-background-color: #EFA8A8;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+.default-color6.chart-line-symbol { /* solid square */
+    -fx-background-color: #E4D354, #dad1d1;
+    -fx-background-radius: 0;
+}
+.default-color7.chart-line-symbol { /* solid diamond */
+    -fx-background-color: #FFDEAD, #dad1d1;
+    -fx-background-radius: 0;
+    -fx-padding: 7px 5px 7px 5px;
+    -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";
+}
+.default-color8.chart-line-symbol { /* check */
+    -fx-background-color: #794044; 
+    -fx-shape: "M0,4 L2,4 L4,8 L7,0 L9,0 L4,11 Z";
+}
+
+
+
+/****************************************************************
+  ScrollBar Skin  
+****************************************************************/
+/*.scroll-pane {
+    -fx-focus-color: transparent;
+}
+.scroll-pane:focused {
+    -fx-focus-color: transparent;
+}*/
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+.scroll-bar{
+ -fx-background-color: transparent;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+ -fx-background-color: transparent;
+ -fx-border-color:transparent;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+ -fx-background-color: transparent;
+ -fx-background-insets: 0;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .thumb {
+ -fx-background-color:  rgba(128,128,128,0.3);
+ -fx-background-insets: 3 0 3 0;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:vertical .thumb {
+ -fx-background-color: rgba(128,128,128,0.3);
+ -fx-background-insets: 0 3 0 3;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+ -fx-background-color: rgba(128,128,128,0.3);
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+ -fx-background-color: rgba(128,128,128,0.3);
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+ -fx-background-color:rgb(61, 67, 81);
+ -fx-background-radius: 2em;
+ -fx-padding: 4;
+}
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+ -fx-background-color:rgb(61, 67, 81);
+ -fx-background-radius: 2em;
+ -fx-padding: 4;
+}
+.scroll-bar:horizontal .increment-arrow {
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-padding: 0.25em;
+ -fx-rotate: -90;
+}
+.scroll-bar:vertical .increment-arrow {
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 0;
+}
+.scroll-bar:horizontal .decrement-arrow {
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 90;
+}
+.scroll-bar:vertical .decrement-arrow {
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: -180;
+}
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+ -fx-background-color: rgb(61, 67, 81);
+}
+.scroll-pane > .corner {
+    -fx-background-color: rgba(46,51,55,0.9);
+    -fx-background-insets: 0 1 1 0;
+}
+
+/****************************************************************
+  SplitPane Css Skin
+****************************************************************/
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-background-color:  transparent;
+    -fx-padding: 0 3 3 0;
+}
+.split-pane:vertical > .split-pane-divider {
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+
+/****************************************************************
+  Customized Css class
+****************************************************************/
+.status-bar{
+/*    -fx-background-image: url("/org/mwang/exnvizermonitor/Images/texture.png");
+    -fx-background-repeat: repeat;*/
+    -fx-background-color: rgb(5, 5, 5),rgb(87, 89, 92),linear-gradient(rgba(56,65,71,0.3),rgba(56,65,71,0.3),rgba(56,65,71,0.3)); 
+}
+
+
+.image-pane {
+/*    -fx-background-image: url("/org/mwang/exnvizermonitor/Images/texture.png");
+    -fx-background-repeat: repeat;*/
+    -fx-background-color:  rgba(128,128,128,0.3);
+    -fx-background-insets: 0 0 0 0;
+}
+
+
+.tree-view {
+    /*-fx-background-color:  #2C2E3D;*/
+    -fx-background-color:  transparent;
+    -fx-padding: 0 0 0 0;
+}
+.tree-view .tree-cell{
+    -fx-padding: 4 0 4 0;
+    /*-fx-background-color: #2C2E3D;*/
+    -fx-background-color: transparent;
+    -fx-text-fill: #dad1d1 ;  
+}
+.tree-view .tree-cell:selected:hover{
+    -fx-opacity:0.95;
+}
+.tree-view .tree-cell .label{
+    /*-fx-background-insets: -2 -3 -2 0;*/
+    /*-fx-background-insets: -2 -3 -2 0;*/
+}
+.tree-cell .tree-disclosure-node .arrow {
+    -fx-padding: 0.333333em 0em 0.333333em 0em; /* 4 */
+    -fx-scale-shape: false;
+    -fx-background-color: #dad1d1;
+    -fx-effect: dropshadow(two-pass-box,grey,5,.2,0,0);
+    -fx-shape: "M6,0 L12,3.5 L6,7 L0,3.5 Z"; 
+}
+
+.label{
+    -fx-font-size: 13px;
+}
+
+/****************************************************************
+  Button Css Skin
+****************************************************************/
+.button:hover {
+    -fx-text-fill: white;
+}
+.button{
+    -fx-text-fill: #dad1d1;
+}
+
+.toggle-button{
+    -fx-text-fill: #dad1d1;
+}
+
+.custom-raised-button{
+    -fx-padding: 0.35em 0.75em 0.35em 0.75em;
+    /*-fx-padding: 0.7em 0.57em;*/
+    -fx-font-size: 13px;
+    -fx-button-type: RAISED;
+    -fx-background-color: rgba(56,65,71,0.9);
+    /*-fx-pref-width: 200;*/
+    -fx-text-fill: #dad1d1;
+}
+
+.button:disabled{
+    -fx-opacity: 0.5;    
+}
+.jfx-button .jfx-rippler{
+    -fx-rippler-fill: #FFFF8D;   
+}
+.jfx-radio-button .jfx-rippler{
+    -fx-rippler-fill: #FFFF8D;
+    -fx-scale-x:0.75;
+    -fx-scale-y:0.75;
+    -fx-scale-z:0.75;
+}
+.jfx-check-box .jfx-rippler{
+    -fx-rippler-fill: #FFFF8D;
+    -fx-scale-x:0.75;
+    -fx-scale-y:0.75;
+    -fx-scale-z:0.75;    
+}
+.jfx-radio-button{
+    -fx-label-padding:0em 0em 0em -0.4em;
+}
+.jfx-check-box{
+    -fx-label-padding:0em 0em 0em -0.4em;
+}
+
+/****************************************************************
+  ToolBar Css Skin
+****************************************************************/
+#background {
+    -light-black: rgb(74, 75, 78);
+    -dark-highlight: rgb(87, 89, 92);
+    -dark-black: rgb(39, 40, 40);
+    -darkest-black: rgb(5, 5, 5);
+    -mid-gray: rgb(216, 222, 227);
+    -fx-background-color: -mid-gray;
+}
+
+.SegToolBar {
+    -fx-background-color: rgba(128,128,128,0.3);
+    -fx-padding: .2em 0.2em .35em 1.4em;
+    -fx-border-color:rgba(128,128,128,0.3);
+    -fx-border-radius:4;
+}
+
+.tool-bar {
+    -fx-base: rgba(128,128,128,0.3);
+    -fx-font-size: 9pt;
+    -fx-background-color:rgba(128,128,128,0.3);
+    -fx-background-insets: 1, 0 0 1 0;
+    -fx-padding: .15em 0.2em .15em 0.2em;
+    -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.tool-bar .spacer {
+    -fx-padding: 0 5.417em 0 -100;
+}
+
+.segmented-button-bar .button {
+    -fx-background-color:
+        -darkest-black,
+        -dark-highlight,
+        linear-gradient(rgba(56,65,71,0.7),rgb(56,65,71),rgba(56,65,71,0.7));
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0;
+    -fx-padding: 0.4em 1.833333em 0.4em 1.833333em;
+}
+
+.segmented-button-bar .toggle-button {
+    -fx-background-color:
+        -darkest-black,
+        -dark-highlight,
+        linear-gradient(rgba(56,65,71,0.7),rgb(56,65,71),rgba(56,65,71,0.7));
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0;
+    -fx-padding: 0.4em 1.833333em 0.4em 1.833333em;
+}
+
+.segmented-button-bar .toggle-button:selected {
+    -fx-background-color:
+        -darkest-black,
+        linear-gradient(rgba(56,65,71,0.7),rgb(56,65,71),rgba(56,65,71,0.7));
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0;
+    -fx-padding: 0.4em 1.833333em 0.4em 1.833333em;
+}
+
+.segmented-button-bar .toggle-button.last {
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 2 2 0;
+}
+
+.segmented-button-bar .button.first {
+    -fx-background-insets: 0, 1, 2 1 1 1;
+    -fx-background-radius: 3 0 0 3, 2 0 0 2, 2 0 0 2;
+}
+ 
+.segmented-button-bar .button.last {
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 2 2 0;
+}
+ 
+.segmented-button-bar .button:pressed {
+    -fx-background-color:
+        -darkest-black,
+        rgb(55, 57, 58),
+        linear-gradient(rgba(56,65,71,0.7),rgb(56,65,71),rgba(56,65,71,0.7));
+}
+
+.text-field{
+    -fx-text-fill:#dad1d1;
+}
+
+/****************************************************************
+  ListView Css Skin
+****************************************************************/
+.text-area .content {
+    /*the is 1px less top and bottom than TextInput because of scrollpane border */
+    -fx-padding: 0.25em 0.583em 0.25em 0.583em; /* 3 7 3 7 */
+    -fx-cursor: text;
+    -fx-border-color:rgba(128,128,128,0.3);
+    -fx-background-color: transparent;
+    -fx-background-radius: 2;
+}
+.text-area:focused .content {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 0, 2;
+    -fx-background-radius: 2, 1, 0;
+}
+.text-area {
+    -fx-padding: 0;
+    -fx-cursor: default;
+    -fx-background-color: transparent;
+    -fx-text-fill:#dad1d1;
+}
+
+/****************************************************************
+  Slider Css Skin
+****************************************************************/
+.range-slider .track {
+    -fx-background-color:transparent;
+    -fx-border-color:rgba(128,128,128,0.3);
+    -fx-border-radius:6;
+    -fx-background-insets: 0 0 -1 0, 0, 1;
+    -fx-background-radius: 0.25em, 0.25em, 0.166667em; /* 3 3 2 */
+    -fx-padding: 0.25em; /* 3 */
+}
+.range-slider .range-bar {
+    -fx-background-color: rgba(128,128,128,0.5);
+}
+.range-slider .low-thumb, 
+.range-slider .high-thumb {
+    -fx-background-color:rgba(128,128,128,0.55);
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 1.0em; /* makes sure this remains circular */
+    -fx-padding: 0.583333em;  /* 7 */
+    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.1), 5, 0.0 , 0, 2);
+}
+
+
+.range-slider .low-thumb:focused, 
+.range-slider .high-thumb:focused {
+    -fx-background-color:
+        linear-gradient(rgb(154,205,50),rgb(255,255,77),rgb(154,205,50)),
+         rgb(64, 55, 86),
+        rgba(128,128,128,0.6),
+        rgba(128,128,128,0.6);
+    -fx-background-insets: -1.4, 0, 1, 2;
+    -fx-background-radius: 1.0em; /* makes sure this remains circular */
+}

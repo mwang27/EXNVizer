@@ -1,0 +1,63 @@
+
+
+/*********************************** 
+    Dynamic Chart Mode Styles 
+************************************/
+.chart{
+    -fx-padding: 10 0 10 0;
+    -fx-background-color: linear-gradient(rgba(57,67,82,0.9), rgba(57,67,82,0.8));
+    -fx-border-width: 2;
+    -fx-border-color: lightgrey;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;    
+}
+
+.chart-title{
+    -fx-padding: 0 5 5 5;
+    /*-fx-font: 17pt "Arial";*/
+    -fx-text-fill: whitesmoke;
+    /*-fx-font-weight: bold;*/
+}
+
+.chart-plot-background{
+    -fx-background-color: rgba(45,45,46,0.5);
+    -fx-border-color: lightgray;
+    -fx-border-width: 1.3;
+}
+
+.chart-legend .label{
+    -fx-text-fill: grey;
+}
+
+
+
+.axis{
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: whitesmoke;
+    -fx-tick-length: 12;
+    -fx-minor-tick-length: 7;
+    -fx-minor-tick-count: 2;
+    -fx-stoke: lightgray;
+    -fx-stroke-weight:2;
+}
+.axis-tick-mark{
+    -fx-stroke: whitesmoke;
+    -fx-stroke-width: 1.2;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: whitesmoke;
+}
+.axis-label{
+    -fx-font: 13pt "Arial";
+    -fx-text-fill: whitesmoke; 
+}
+
+.chart-vertical-grid-lines{
+    -fx-stroke: darkgrey;
+}
+.chart-horizontal-grid-lines{
+    -fx-stroke: darkgrey;
+}
+.chart-vertical-zero-line, .chart-horizontal-zero-line {
+    -fx-stroke: whitesmoke;
+}

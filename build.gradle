@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = '1.8'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+// NetBeans will automatically add "run" and "debug" tasks relying on the
+// "mainClass" property. You may however define the property prior executing
+// tasks by passing a "-PmainClass=<QUALIFIED_CLASS_NAME>" argument.
+//
+// Note however, that you may define your own "run" and "debug" task if you
+// prefer. In this case NetBeans will not add these tasks but you may rely on
+// your own implementation.
+
+mainClassName = "org.mwang.exnvizer.main.EXNVizer"
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'org.mwang.exnvizer.main.EXNVizer'
+}
+
+repositories {
+    mavenCentral()
+    // You may define additional repositories, or even remove "mavenCentral()".
+    // Read more about repositories here:
+    //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:repositories
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/' 
+    }
+}
+
+dependencies {
+    // TODO: Add dependencies here ...
+    // You can read more about how to add dependency here:
+    //   http://www.gradle.org/docs/current/userguide/dependency_management.html#sec:how_to_declare_your_dependencies
+    testCompile group: 'junit', name: 'junit', version: '4.10'
+//    compile group: 'io.reactivex', name: 'rxjavafx', version: '0.1.4'
+//    compile 'io.reactivex:rxjavafx:0.1.4'
+//    compile 'de.jensd:fontawesomefx-commons:8.12'
+    compile fileTree(dir: 'externaljar', include: '*.jar')
+    
+    compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '1.0.0-SNAPSHOT'
+    
+}
+
+jar {
+    manifest.attributes "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+    manifest.attributes "Main-Class": "org.mwang.exnvizer.main.EXNVizer"
+}
+
+
+//jar {
+//    manifest {
+//        attributes (\
+//            "Class-Path": configurations.compile.collect { it.getName() }.join(' '),
+//            "Main-Class": "org.mwang.exnvizer.main.EXNVizer"
+//        )
+//    }
+//}
+

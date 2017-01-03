@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="597.0" prefWidth="1105.0" style="-fx-background-color: rgb(56, 59, 76);" stylesheets="@../../resource/style/EXNPararealViewStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ToolBar fx:id="winBtnToolBar" style="-fx-background-color: rgba(128,128,128,0.3);" VBox.vgrow="NEVER">
+         <items>
+            <JFXButton fx:id="startPararealView" ripplerFill="#b39cee" style="-fx-background-color: rgb(56, 59, 76);" text="start" textFill="#dad1d1" />
+            <JFXButton fx:id="stopPararealView" ripplerFill="#b39cee" style="-fx-background-color: rgb(56, 59, 76);" text="stop" textFill="#dad1d1" />
+            <JFXButton fx:id="snapshotBtn" layoutX="99.0" layoutY="11.0" ripplerFill="#b39cee" style="-fx-background-color: rgb(56, 59, 76);" text="snapshot" textFill="#dad1d1" />
+            <ToggleButton fx:id="allinoneWinToggleBtn" mnemonicParsing="false" text="All-In-One" textFill="WHITE" />
+         </items>
+         <padding>
+            <Insets bottom="3.0" left="3.0" top="2.0" />
+         </padding>
+      </ToolBar>
+      <AnchorPane fx:id="pararealWinAnchorPane" style="-fx-background-color: rgb(56, 59, 76);" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>

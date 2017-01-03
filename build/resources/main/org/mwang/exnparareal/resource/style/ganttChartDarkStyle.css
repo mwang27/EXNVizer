@@ -1,0 +1,256 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15-Jun-2016, 7:28:31 PM
+    Author     : mwang
+*/
+.status-propF20 {
+    -fx-background-color:#ac8fbf;
+}
+.status-propF19 {
+    -fx-background-color:#fa8a2c;
+}
+.status-propF18 {
+    -fx-background-color:#b05097;
+}
+.status-propF17 {
+    -fx-background-color:#c4e781;
+}
+.status-propF16 {
+    -fx-background-color:#a5dcec;
+}
+.status-propF15 {
+    -fx-background-color:#de5afe;
+}
+.status-propF14{
+    -fx-background-color:#acd1ce;
+}
+.status-propF13 {
+    -fx-background-color:#42cdab;
+}
+.status-propF12 {
+    -fx-background-color:#8faca6;
+}
+.status-propF11 {
+    -fx-background-color:#cfbfaa;
+}
+.status-propF10 {
+    -fx-background-color:#87ed89;
+}
+.status-propF9 {
+    -fx-background-color:#0da777;
+}
+.status-propF8 {
+    -fx-background-color:#E98CA2;
+}
+.status-propF7 {
+    -fx-background-color:#8CCFA4;
+}
+.status-propF6{
+    -fx-background-color:#F1D0A1;
+}
+.status-propF5 {
+    -fx-background-color:#A8C9E6;
+}
+.status-propF4 {
+    -fx-background-color:#C6A2CD;
+}
+.status-propF3 {
+    -fx-background-color:#57C4C4;
+}
+.status-propF2 {
+    -fx-background-color:#C9D37C;
+}
+.status-propF1 {
+    -fx-background-color:#898FC6;
+}
+.status-propC {
+    -fx-background-color:rgb(56,69,92);
+}
+
+
+.toolTipBorder20 {
+    -fx-border-color:#ac8fbf;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder19 {
+    -fx-border-color:#fa8a2c;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder18 {
+    -fx-border-color:#b05097;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder17 {
+    -fx-border-color:#c4e781;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder16 {
+    -fx-border-color:#a5dcec;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder15 {
+    -fx-border-color:#de5afe;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder14{
+    -fx-border-color:#acd1ce;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder13 {
+    -fx-border-color:#42cdab;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder12 {
+    -fx-border-color:#8faca6;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder11 {
+    -fx-border-color:#cfbfaa;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder10 {
+    -fx-border-color:#87ed89;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder9 {
+    -fx-border-color:#0da777;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder8 {
+    -fx-border-color:#E98CA2;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder7 {
+    -fx-border-color:#8CCFA4;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder6{
+    -fx-border-color:#F1D0A1;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder5 {
+    -fx-border-color:#A8C9E6;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder4 {
+    -fx-border-color:#C6A2CD;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder3 {
+    -fx-border-color:#57C4C4;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder2 {
+    -fx-border-color:#C9D37C;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder1 {
+    -fx-border-color:#898FC6;
+    -fx-border-width: 1.5;
+}
+.toolTipBorder0{
+    -fx-border-color:rgb(56,69,92);
+    -fx-border-width: 1.5;
+}
+
+
+
+
+
+.chart{
+    -fx-padding: 15 0 10 0;
+    -fx-background-color:  #2C2E3D;
+    -fx-background-radius: 10px;
+    -fx-border-color:  rgba(128,128,128,0.3);
+    -fx-border-radius: 10px;
+}
+.chart-title{
+    -fx-padding: 0 0 0 90;
+    -fx-font-size: 14px;
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-text-fill: whitesmoke;
+}
+.chart-content{
+    -fx-padding: 10 40 10 5;
+}
+.chart-plot-background{
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-color:  #2C2E3D;
+}
+/*.chart-legend .label{
+    -fx-font-family: "System";
+    -fx-font-size:10pt;
+    -fx-text-fill: rgb(113,113,113);
+    -fx-font-weight: bold;
+}*/
+
+.level-legend {
+  -fx-padding: 10; 
+  -fx-border-width: 2; 
+  -fx-background-color: rgba(211, 211, 211, 0.5); 
+  -fx-border-color: derive(rgba(211, 211, 211, 0.7), 10%);
+}
+
+.axis{
+    -fx-font-size: 1.1em;
+    -fx-tick-label-font-size: 10px;
+    -fx-tick-label-fill: whitesmoke;
+    -fx-tick-length: 12;
+    -fx-minor-tick-length: 7;
+    -fx-minor-tick-count: 2;
+    -fx-stoke: rgb(113,113,113);
+    -fx-stroke-weight:2;
+}
+.axis-label{
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-text-fill: whitesmoke;
+    -fx-padding:5 0 0 0;
+}
+.axis-tick-mark{
+    -fx-stroke: rgb(113,113,113);
+    -fx-stroke-width: 1.6;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: rgb(113,113,113);
+}
+
+.chart-vertical-grid-lines{
+    -fx-stroke: rgb(113,113,113);
+}
+.chart-horizontal-grid-lines{
+    /*-fx-stroke: rgb(113,113,113);*/
+    -fx-stroke: transparent;
+}
+.chart-vertical-zero-line, .chart-horizontal-zero-line {
+    -fx-stroke: rgb(113,113,113);
+}
+
+
+.default-color0.chart-bar { -fx-bar-fill: #57ABD7; }
+.default-color1.chart-bar { -fx-bar-fill: #A0E674; }
+.default-color2.chart-bar { -fx-bar-fill: #F37469; }
+.default-color3.chart-bar { -fx-bar-fill: #8085E9; }
+.default-color4.chart-bar { -fx-bar-fill: #F15C80; }
+.default-color5.chart-bar { -fx-bar-fill: #EFA8A8; }
+.default-color6.chart-bar { -fx-bar-fill: #E4D354; }
+.default-color7.chart-bar { -fx-bar-fill: #FFDEAD; }
+.default-color8.chart-bar { -fx-bar-fill: #794044; }
+
+.onHover{
+    -fx-scale-x: 1.35;
+    -fx-scale-y: 1.35;   
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10;
+}
+.seriesOnHover{
+    -fx-stroke-width: 3.2px;
+}
+
+

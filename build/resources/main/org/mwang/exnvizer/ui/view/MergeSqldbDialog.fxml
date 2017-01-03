@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="367.0" prefWidth="587.0" style="-fx-background-color: rgb(56, 59, 76);" stylesheets="@../../resource/style/mergeSqldbDialogStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="11.800000190734863" layoutY="11.800000190734863" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Save Mergerd Sqlite Database File As:" textFill="#ddd2d2" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets left="3.0" top="10.0" />
+               </VBox.margin></Label>
+            <HBox layoutX="10.0" layoutY="10.0" spacing="5.0" VBox.vgrow="NEVER">
+               <children>
+                  <TextField fx:id="mergedDBPathTextField" style="-fx-border-color: rgba(128,128,128,0.3); -fx-background-color: transparent;" stylesheets="@../../resource/style/mergeSqldbDialogStyle.css" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </TextField>
+                  <JFXButton fx:id="browserBtn" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Browse..." textFill="#dacfcf" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets right="3.0" />
+               </padding>
+            </HBox>
+            <Label text="Sqlite database files to merge:" textFill="#ddd2d2" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets left="3.0" />
+               </VBox.margin>
+            </Label>
+            <HBox spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="sqldbListView" HBox.hgrow="ALWAYS" />
+                  <VBox spacing="5.0">
+                     <children>
+                        <JFXButton fx:id="addDBBtn" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Add" textFill="#dacfcf" VBox.vgrow="NEVER">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="removeDBBtn" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Remove" textFill="#dacfcf" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="clearAllDBBtn" layoutX="13.0" layoutY="44.0" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Clear All" textFill="#dacfcf">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="moveUpBtn" layoutX="13.0" layoutY="44.0" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Move Up" textFill="#dacfcf">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="10.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="moveDownBtn" layoutX="10.0" layoutY="72.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Move Down" textFill="#dacfcf">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="3.0" />
+               </padding>
+            </HBox>
+            <AnchorPane VBox.vgrow="NEVER">
+               <children>
+                  <HBox layoutX="1.0" layoutY="1.0" spacing="13.0" AnchorPane.rightAnchor="6.0">
+                     <children>
+                        <JFXButton fx:id="cancelMergeDBBtn" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Cancel" textFill="#dacfcf">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="mergeDBBtn" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Merge" textFill="#dacfcf">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </AnchorPane>
+            <HBox spacing="5.0" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="3.0" top="15.0" />
+               </VBox.margin>
+               <children>
+                  <StackPane HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <JFXProgressBar fx:id="mergeDBProgressBar" progress="0.18" StackPane.alignment="CENTER_LEFT">
+                           <StackPane.margin>
+                              <Insets left="3.0" />
+                           </StackPane.margin>
+                        </JFXProgressBar>
+                     </children>
+                  </StackPane>
+                  <Label fx:id="mergeTaskStatusLabel" textFill="#dacfcf" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXButton fx:id="visualizeSqldbBtn" minWidth="80.0" style="-fx-background-color: rgba(128,128,128,0.3);" text="Visualize" textFill="#dacfcf">
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets right="3.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="3.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

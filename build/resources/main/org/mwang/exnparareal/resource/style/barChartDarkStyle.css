@@ -1,0 +1,104 @@
+/* 
+    Created on : 17-Sep-2015, 2:55:51 PM
+    Author     : mwang
+*/
+
+
+
+/****************************************************************
+  Chart Skin  4
+****************************************************************/
+.chart{
+    -fx-padding: 15 0 10 0;
+    -fx-background-color:  #2C2E3D;
+    -fx-background-radius: 10px;
+    -fx-border-color:  rgba(128,128,128,0.3);
+    -fx-border-radius: 10px;
+}
+.chart-title{
+    -fx-padding: 0 5 15 5;
+    -fx-font-size: 16pt;
+    -fx-font-family: "System"; 
+    -fx-font-weight: bold;
+    -fx-text-fill: whitesmoke;
+}
+.chart-content{
+    -fx-padding: 10 25 10 10;
+}
+.chart-plot-background{
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-background-color:  #2C2E3D;
+}
+/*.chart-legend .label{
+    -fx-font-family: "System";
+    -fx-font-size:10pt;
+    -fx-text-fill: rgb(113,113,113);
+    -fx-font-weight: bold;
+}*/
+
+.level-legend {
+  -fx-padding: 10; 
+  -fx-border-width: 2; 
+  -fx-background-color: rgba(211, 211, 211, 0.5); 
+  -fx-border-color: derive(rgba(211, 211, 211, 0.7), 10%);
+}
+
+.axis{
+    -fx-font-size: 1.4em;
+    -fx-tick-label-font-size: 11px;
+    -fx-tick-label-font-weight: bold;
+    -fx-tick-label-fill: whitesmoke;
+    -fx-tick-length: 12;
+    -fx-minor-tick-length: 7;
+    -fx-minor-tick-count: 2; 
+    -fx-stoke: rgb(113,113,113);
+    -fx-stroke-weight:2;
+}
+.axis-label{
+    -fx-font-family: "System";
+    -fx-font-size: 11pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: whitesmoke;
+    -fx-padding:5 0 0 0;
+}
+.axis-tick-mark{
+    -fx-stroke: rgb(113,113,113);
+    -fx-stroke-width: 1.6;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: rgb(113,113,113);
+}
+
+.chart-vertical-grid-lines{
+    /*-fx-stroke: rgb(113,113,113);*/
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines{
+    -fx-stroke: rgb(113,113,113);
+}
+.chart-vertical-zero-line, .chart-horizontal-zero-line {
+    -fx-stroke: rgb(113,113,113);
+}
+
+
+.default-color0.chart-bar { -fx-bar-fill: #57ABD7; }
+.default-color1.chart-bar { -fx-bar-fill: #A0E674; }
+.default-color2.chart-bar { -fx-bar-fill: #F37469; }
+.default-color3.chart-bar { -fx-bar-fill: #8085E9; }
+.default-color4.chart-bar { -fx-bar-fill: #F15C80; }
+.default-color5.chart-bar { -fx-bar-fill: #EFA8A8; }
+.default-color6.chart-bar { -fx-bar-fill: #E4D354; }
+.default-color7.chart-bar { -fx-bar-fill: #FFDEAD; }
+.default-color8.chart-bar { -fx-bar-fill: #794044; }
+
+.onHover{
+    -fx-scale-x: 1.35;
+    -fx-scale-y: 1.35;   
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10;
+}
+.seriesOnHover{
+    -fx-stroke-width: 3.2px;
+}
+

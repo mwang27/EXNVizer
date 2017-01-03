@@ -1,0 +1,128 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-Aug-2016, 4:02:31 PM
+    Author     : mwang
+*/
+
+
+
+.text-field {
+    -fx-text-fill: #dad1d1;
+    -fx-prompt-text-fill: #dad1d1;
+}
+
+.list-view{
+    -fx-padding: 5 5 5 5;
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(128,128,128,0.3);
+}
+.list-cell{
+    -fx-background-color:  transparent;
+    -fx-text-fill: #dad1d1;
+}
+.list-cell:filled{
+    -fx-background-color:  transparent;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: rgba(44,46,61,1.0);
+    -fx-text-weight: bold;
+}
+
+/*.list-cell:filled:hover {
+    -fx-background-color: rgba(44,46,61,0.7);
+    -fx-text-fill: white;
+}*/
+
+/****************************************************************
+  ScrollBar Skin  
+****************************************************************/
+/*.scroll-pane {
+    -fx-focus-color: transparent;
+}
+.scroll-pane:focused {
+    -fx-focus-color: transparent;
+}*/
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+.scroll-bar{
+ -fx-background-color: transparent;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+ -fx-background-color: transparent;
+ -fx-border-color:transparent;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+ -fx-background-color: transparent;
+ -fx-background-insets: 0;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .thumb {
+ -fx-background-color:  rgba(128,128,128,0.3);
+ -fx-background-insets: 3 0 3 0;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:vertical .thumb {
+ -fx-background-color: rgba(128,128,128,0.3);
+ -fx-background-insets: 0 3 0 3;
+ -fx-background-radius: 2em;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+ -fx-background-color: rgba(128,128,128,0.3);
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+ -fx-background-color: rgba(128,128,128,0.3);
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+ -fx-background-color:rgb(61, 67, 81);
+ -fx-background-radius: 2em;
+ -fx-padding: 4;
+}
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+ -fx-background-color:rgb(61, 67, 81);
+ -fx-background-radius: 2em;
+ -fx-padding: 4;
+}
+.scroll-bar:horizontal .increment-arrow {
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-padding: 0.25em;
+ -fx-rotate: -90;
+}
+.scroll-bar:vertical .increment-arrow {
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 0;
+}
+.scroll-bar:horizontal .decrement-arrow {
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: 90;
+}
+.scroll-bar:vertical .decrement-arrow {
+ -fx-background-color: rgb(61, 67, 81);
+ -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+ -fx-padding: 0.25em;
+ -fx-rotate: -180;
+}
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+ -fx-background-color: rgb(61, 67, 81);
+}
+.scroll-pane > .corner {
+    -fx-background-color: rgba(46,51,55,0.9);
+    -fx-background-insets: 0 1 1 0;
+}
